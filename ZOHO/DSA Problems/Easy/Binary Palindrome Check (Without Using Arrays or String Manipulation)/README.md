@@ -1,5 +1,3 @@
-# README.md
-
 # Binary Palindrome Check (Without Using Arrays or String Manipulation)
 
 ## Question
