@@ -1,5 +1,3 @@
-# README.md
-
 # Maximum Path Sum in a Matrix (Move Only Right or Down)
 
 ## Question
