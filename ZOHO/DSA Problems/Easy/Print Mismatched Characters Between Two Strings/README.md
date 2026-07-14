@@ -6,34 +6,32 @@ Given **two strings of equal length**, compare them character by character and p
 
 ### Rules
 
-* If **consecutive characters** are mismatched, group them together and print them as a single pair.
-* If only **one character** is mismatched, print that character pair individually.
-* If **no mismatches** are found, print **`No mismatches`**.
+- If **two consecutive characters** are mismatched, print them together as one group.
+- If a **single character** is mismatched, print that character pair individually.
+- Continue this process until the end of the strings.
 
 ---
 
 ## Example
 
 **Input**
-
-```
-S1 = "abcdefghi"
-S2 = "abdeeggii"
+```text
+S1 = abcdefghi
+S2 = abdeeggii
 ```
 
 **Output**
-
-```
-cd , de
-f , g
-h , i
+```text
+cd, de
+f, g
+h, i
 ```
 
 **Explanation**
 
-* `c` and `d` mismatch with `d` and `e`, and they are consecutive, so they are grouped.
-* `f` mismatches with `g`.
-* `h` mismatches with `i`.
+- `c` and `d` mismatch with `d` and `e`, so they are printed together.
+- `f` mismatches with `g`.
+- `h` mismatches with `i`.
 
 ---
 
@@ -42,18 +40,16 @@ h , i
 ### Test Case 1
 
 **Input**
-
-```
-S1 = "abcdefghi"
-S2 = "abdeeggii"
+```text
+abcdefghi
+abdeeggii
 ```
 
 **Output**
-
-```
-cd , de
-f , g
-h , i
+```text
+cd, de
+f, g
+h, i
 ```
 
 ---
@@ -61,16 +57,14 @@ h , i
 ### Test Case 2
 
 **Input**
-
-```
-S1 = "hello"
-S2 = "hallo"
+```text
+hello
+hallo
 ```
 
 **Output**
-
-```
-e , a
+```text
+e, a
 ```
 
 ---
@@ -78,16 +72,15 @@ e , a
 ### Test Case 3
 
 **Input**
-
-```
-S1 = "abcdefgh"
-S2 = "abcxyzgh"
+```text
+abcdefghij
+abxyefuvij
 ```
 
 **Output**
-
-```
-def , xyz
+```text
+cd, xy
+gh, uv
 ```
 
 ---
@@ -95,21 +88,21 @@ def , xyz
 # Solution Approach
 
 1. Read the two input strings.
-2. Traverse both strings simultaneously.
-3. Whenever a mismatch is found:
-
-   * Start collecting consecutive mismatched characters from both strings.
-   * Continue until characters become equal or the string ends.
-4. Print the collected mismatched substring from both strings.
-5. If no mismatch is found throughout the traversal, print **`No mismatches`**.
+2. Traverse both strings from left to right.
+3. At each position:
+   - Compare the current characters.
+   - Also compare the next characters.
+4. If both the current and next characters mismatch, print both characters together and skip the next index.
+5. Otherwise, if only the current characters mismatch, print that mismatched pair.
+6. Continue until the end of the string.
 
 ### Time Complexity
 
-* **O(n)**
+- **O(n)**
 
 ### Space Complexity
 
-* **O(1)** (excluding the output strings)
+- **O(1)**
 
 ---
 
@@ -118,43 +111,31 @@ def , xyz
 ```java
 import java.util.Scanner;
 
+// "static void main" must be defined in a public class.
 public class Main {
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-
-        String s1 = sc.next();
-        String s2 = sc.next();
-
-        boolean found = false;
-        int i = 0;
-
-        while (i < s1.length()) {
-
-            if (s1.charAt(i) != s2.charAt(i)) {
-
-                StringBuilder a = new StringBuilder();
-                StringBuilder b = new StringBuilder();
-
-                while (i < s1.length() && s1.charAt(i) != s2.charAt(i)) {
-                    a.append(s1.charAt(i));
-                    b.append(s2.charAt(i));
-                    i++;
-                }
-
-                System.out.println(a + " , " + b);
-                found = true;
-
-            } else {
+        
+        String st1 = sc.next();
+        String st2 = sc.next();
+        
+        int n = st1.length();
+        
+        for(int i=0; i<n-1; i++){
+            char ch1 = st1.charAt(i);
+            char ch2 = st2.charAt(i);
+            
+            char ch3 = st1.charAt(i+1);
+            char ch4 = st2.charAt(i+1);
+            
+            if(ch1 != ch2 && ch3 != ch4){
+                System.out.println(ch1 + "" + ch3 + ", " + ch2 + "" + ch4 + " ");
                 i++;
             }
+            else if(ch1 != ch2){
+                System.out.println(ch1 + ", " + ch2);
+            }
         }
-
-        if (!found) {
-            System.out.println("No mismatches");
-        }
-
-        sc.close();
     }
 }
 ```
