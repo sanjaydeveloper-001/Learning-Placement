@@ -1,44 +1,20 @@
 import java.util.Scanner;
 
+// "static void main" must be defined in a public class.
 public class Main {
-
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-
+        
         int n = sc.nextInt();
-
-        if (n == 0) {
-            System.out.println("0 - Palindrome");
-            return;
-        }
-
         int temp = n;
-        long binary = 0;
-        long place = 1;
-
-        // Convert decimal to binary (stored as a number)
-        while (temp > 0) {
-            binary += (temp % 2) * place;
-            place *= 10;
-            temp /= 2;
+        int temp2 = 0;
+        
+        while(temp > 0){
+            temp2 = (temp2*10) + (temp%10);
+            temp /= 10;
         }
-
-        long original = binary;
-        long reverse = 0;
-
-        // Reverse the binary number
-        while (binary > 0) {
-            reverse = reverse * 10 + (binary % 10);
-            binary /= 10;
-        }
-
-        if (original == reverse) {
-            System.out.println(original + " - Palindrome");
-        } else {
-            System.out.println(original + " - Not a Palindrome");
-        }
-
-        sc.close();
+        
+        System.out.print(n+((temp2 == n)? " - Palindrome" : " - Not a Palindrome"));
+        
     }
 }
